@@ -1,10 +1,10 @@
-# Module 1 - Create a Blockchain
 import datetime
 import hashlib
 import json
 from flask import Flask, jsonify
 
 
+# Create Blockchain Class
 class Blockchain:
 
 # Initialize the class with chain and genesis block    
@@ -41,6 +41,7 @@ class Blockchain:
         encoded_block = json.dumps(block, sort_keys = True).encode()
         return hashlib.sha256(encoded_block).hexdigest()
     
+    # Check if chain is valid
     def is_chain_valid(self, chain):
         previous_block = chain[0]
         block_index = 1
@@ -57,4 +58,42 @@ class Blockchain:
             block_index += 1
         
         return True
-            
+    
+    
+
+# Flask
+app = Flask(__name__)
+
+# Create blockchain
+blockchain = Blockchain()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
