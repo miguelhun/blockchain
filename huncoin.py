@@ -13,6 +13,7 @@ class Blockchain:
 # Initialize the class with chain and genesis block
     def __init__(self):
         self.chain = []
+        self.transactions = []
         self.create_block(proof = 1, previous_hash = '0')
 
 # Function to create block
@@ -61,6 +62,14 @@ class Blockchain:
             block_index += 1
 
         return True
+
+    def add_transaction(self, sender, receiver, amount):
+        self.transactions.append({'sender': sender,
+                                  'receiver': receiver,
+                                  'amount': amount})
+        previous_block = self.get_previous_block()
+        return previous_block['index']
+
 
 
 
