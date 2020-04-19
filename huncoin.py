@@ -15,8 +15,10 @@ class Blockchain:
         self.chain = []
         self.transactions = []
         self.create_block(proof = 1, previous_hash = '0')
+        self.nodes = set()
 
-# Function to create block
+
+# Method to create block
     def create_block(self, proof, previous_hash):
         block = {'index': len(self.chain) + 1,
                  'timestamp': str(datetime.datetime.now()),
@@ -26,9 +28,11 @@ class Blockchain:
         self.chain.append(block)
         return block
 
+    # Method to get previous block
     def get_previous_block(self):
         return self.chain[-1]
 
+    # Proof of work method
     def proof_of_work(self, previous_proof):
          new_proof = 1
          check_proof = False
@@ -41,6 +45,7 @@ class Blockchain:
 
          return new_proof
 
+    # Hash
     def hash(self, block):
         encoded_block = json.dumps(block, sort_keys = True).encode()
         return hashlib.sha256(encoded_block).hexdigest()
@@ -63,12 +68,18 @@ class Blockchain:
 
         return True
 
+    # Add transaction to transaction list
     def add_transaction(self, sender, receiver, amount):
         self.transactions.append({'sender': sender,
                                   'receiver': receiver,
                                   'amount': amount})
         previous_block = self.get_previous_block()
         return previous_block['index']
+
+    # Add node
+    def add_node(self, address):
+        parsed_url = urlparse(address)
+        self.nodes.add(parsed_url.netloc)
 
 
 
